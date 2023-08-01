@@ -2,10 +2,10 @@ import {
   BaseSource,
   Context,
   Item,
-} from "https://deno.land/x/ddu_vim@v1.13.0/types.ts";
-import { Denops, fn } from "https://deno.land/x/ddu_vim@v1.13.0/deps.ts";
-import * as path from "https://deno.land/std@0.165.0/path/mod.ts#^";
-import { walk } from "https://deno.land/std@0.165.0/fs/walk.ts#^";
+} from "https://deno.land/x/ddu_vim@v3.4.4/types.ts";
+import { Denops, fn } from "https://deno.land/x/ddu_vim@v3.4.4/deps.ts";
+import * as path from "https://deno.land/std@0.194.0/path/mod.ts#^";
+import { walk } from "https://deno.land/std@0.194.0/fs/walk.ts#^";
 
 // 1. Output of `rustup doc --path`
 // 2. $HOME/.rustup/toolchains/stable-*
