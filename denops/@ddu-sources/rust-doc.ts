@@ -84,17 +84,20 @@ function stripDir(f: string, dir: string): string {
   return f.replace(new RegExp("^" + dir), "");
 }
 
-type ItemKind =
-  | "module"
-  | "struct"
-  | "trait"
-  | "macro"
-  | "fn"
-  | "type"
-  | "enum"
-  | "keyword"
-  | "constant"
-  | "primitive";
+const ITEM_KINDS = [
+  "module",
+  "struct",
+  "trait",
+  "macro",
+  "fn",
+  "type",
+  "enum",
+  "keyword",
+  "constant",
+  "primitive",
+  "traitalias",
+] as const;
+type ItemKind = typeof ITEM_KINDS[number];
 
 type DocItem = {
   kind: ItemKind;
@@ -184,9 +187,13 @@ function getDocItemFilePath(a: DocItem): string {
 
 function docItemToDduItem(a: DocItem): Item<ActionData> {
   const module = a.module != null ? `${a.module}::` : "";
+  const kindWidth = ITEM_KINDS.map((s) => s.length).reduce((a, c) =>
+    Math.max(a, c)
+  );
+  const padding = " ".repeat(Math.max(0, kindWidth - a.kind.length));
   return {
     word: a.name,
-    display: `${a.kind} ${module}${a.name}`,
+    display: `${a.kind}${padding} ${module}${a.name}`,
     action: {
       kind: a.kind,
       module: a.module,
